@@ -1,0 +1,8 @@
+<div>
+  <ion-list>
+    <ion-item *ngFor="let value of signInForm">
+      <ion-input [placeholder]=value.placeholder  [(ngModel)]="formData[value.id]"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-button (click)='sendData()'>{{buttonTitle}}</ion-button>
+</div>
