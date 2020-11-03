@@ -1,8 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Sign In</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header header='Sign In'></app-header>
 
 <ion-content>
     <app-form [authForm]='signInForm' [button]="'Sign In'" (formEvent)='postData($event)'></app-form>

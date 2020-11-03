@@ -16,7 +16,7 @@ export class SigninPage implements OnInit {
 
   public signInForm: any = [
     { id: 'email', placeholder: 'Email' },
-    { id: 'password', placeholder: 'Password: 6-64 characters' }
+    { id: 'password', type: 'password', placeholder: 'Password: 6-64 characters' }
   ]
   public userSubscription: Subscription;
 
@@ -34,8 +34,10 @@ export class SigninPage implements OnInit {
 
   public postData(data) {
     this.userSubscription = this._authService.signIn(data).subscribe(res => {
-      console.log(res);
-      this._router.navigate(['/home/tasks']);
+      localStorage.setItem('token', res.token);
+      // modal with res.message here
+      this._router.navigate(['home/tasks']);
+      // modal with error here
     });
   }
 }

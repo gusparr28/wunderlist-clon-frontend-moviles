@@ -1,0 +1,9 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button *ngIf="hasBack" [defaultHref]="routeBack"></ion-back-button>
+      <ion-menu-button *ngIf="showSideMenu" menu="first"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{header}}</ion-title>
+  </ion-toolbar>
+</ion-header>

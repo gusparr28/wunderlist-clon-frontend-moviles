@@ -16,7 +16,7 @@ export class SignupPage implements OnInit {
   public signUpForm: any = [
     { id: 'name', placeholder: 'Name' },
     { id: 'email', placeholder: 'Email' },
-    { id: 'password', placeholder: 'Password: 6-64 characters' }
+    { id: 'password', type: 'password', placeholder: 'Password: 6-64 characters' }
   ]
   public userSubscription: Subscription;
 
@@ -34,8 +34,9 @@ export class SignupPage implements OnInit {
 
   public postData(data) {
     this.userSubscription = this._authService.signUp(data).subscribe(res => {
-      console.log(res);
+      // modal with res.message here
       this._router.navigate(['/']);
+      // modal with error here
     });
   }
 }

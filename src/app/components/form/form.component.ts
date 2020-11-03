@@ -7,7 +7,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class FormComponent implements OnInit {
   
-  @Input('authForm') public signInForm: any;
+  @Input() public authForm: any;
   @Input('button') buttonTitle: any;
   @Output() public formEvent = new EventEmitter();
 

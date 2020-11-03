@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SigninPageRoutingModule } from './signin-routing.module';
+import { ViewTaskPageRoutingModule } from './view-task-routing.module';
 
-import { SigninPage } from './signin.page';
+import { ViewTaskPage } from './view-task.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { ComponentsModule } from 'src/app/components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    SigninPageRoutingModule,
+    ViewTaskPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [SigninPage]
+  declarations: [ViewTaskPage]
 })
-export class SigninPageModule { }
+export class ViewTaskPageModule {}

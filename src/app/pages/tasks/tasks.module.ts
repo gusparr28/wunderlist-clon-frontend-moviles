@@ -6,6 +6,7 @@ import { TasksPage } from './tasks.page';
 import { ExploreContainerComponentModule } from '../../explore-container/explore-container.module';
 
 import { TasksPageRoutingModule } from './tasks-routing.module';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { TasksPageRoutingModule } from './tasks-routing.module';
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    TasksPageRoutingModule
+    TasksPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [TasksPage]
 })

@@ -7,15 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { SignupPageRoutingModule } from './signup-routing.module';
 
 import { SignupPage } from './signup.page';
-import { FormComponent } from 'src/app/components/form/form.component';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SignupPageRoutingModule
+    SignupPageRoutingModule,
+    ComponentsModule
   ],
-  declarations: [SignupPage, FormComponent]
+  declarations: [SignupPage]
 })
-export class SignupPageModule {}
+export class SignupPageModule { }

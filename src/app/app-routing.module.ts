@@ -15,7 +15,16 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./pages/signin/signin.module').then( m => m.SigninPageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'home/tasks/:id',
+    loadChildren: () => import('./pages/view-task/view-task.module').then( m => m.ViewTaskPageModule)
   }
+
 ];
 @NgModule({
   imports: [

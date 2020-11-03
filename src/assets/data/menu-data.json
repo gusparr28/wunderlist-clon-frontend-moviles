@@ -1,0 +1,22 @@
+[
+    {
+        "icon": "person-circle",
+        "name": "Profile",
+        "redirectTo": "profile"
+    },
+    {
+        "icon": "calendar",
+        "name": "Today",
+        "redirectTo": "home/calendar"
+    },
+    {
+        "icon": "file-tray",
+        "name": "Inbox",
+        "redirectTo": "home/settings"
+    },
+    {
+        "icon": "settings",
+        "name": "Settings",
+        "redirectTo": "home/settings"
+    }
+]
