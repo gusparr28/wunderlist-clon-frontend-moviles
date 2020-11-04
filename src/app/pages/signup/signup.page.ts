@@ -34,9 +34,9 @@ export class SignupPage implements OnInit {
 
   public postData(data) {
     this.userSubscription = this._authService.signUp(data).subscribe(res => {
-      // modal with res.message here
+      // toast with res.message here
       this._router.navigate(['/']);
-      // modal with error here
+      // toast with error here
     });
   }
 }

@@ -1,11 +1,9 @@
 <app-header [showSideMenu]="true" [hasBack]="false" header="Tasks"></app-header>
 
 <ion-content>
-  <ion-list *ngFor="let task of tasks">
-    <ion-item (click)="viewTask(task)">{{task.description}}</ion-item>
-  </ion-list>
+  <app-task *ngFor="let task of tasks" [task]="task"></app-task>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
+    <ion-fab-button (click)="showModal()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

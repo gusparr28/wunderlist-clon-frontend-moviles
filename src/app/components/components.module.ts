@@ -7,10 +7,12 @@ import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { FormComponent } from './form/form.component';
 import { SidemenuComponent } from './sidemenu/sidemenu.component';
+import { ModalComponent } from './modal/modal.component';
+import { TaskComponent } from './task/task.component';
 
 @NgModule({
-  declarations: [FormComponent, HeaderComponent, SidemenuComponent],
-  exports: [FormComponent, HeaderComponent, SidemenuComponent],
+  declarations: [FormComponent, HeaderComponent, SidemenuComponent, ModalComponent, TaskComponent],
+  exports: [FormComponent, HeaderComponent, SidemenuComponent, ModalComponent, TaskComponent],
   imports: [
     CommonModule,
     IonicModule,

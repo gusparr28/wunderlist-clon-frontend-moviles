@@ -10,19 +10,21 @@ const routes: Routes = [
   },
   {
     path: 'signup',
-    loadChildren: () => import('./pages/signup/signup.module').then( m => m.SignupPageModule)
+    loadChildren: () => import('./pages/signup/signup.module').then(m => m.SignupPageModule)
   },
   {
     path: '',
-    loadChildren: () => import('./pages/signin/signin.module').then( m => m.SigninPageModule)
+    loadChildren: () => import('./pages/signin/signin.module').then(m => m.SigninPageModule)
   },
   {
     path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfilePageModule)
   },
   {
     path: 'home/tasks/:id',
-    loadChildren: () => import('./pages/view-task/view-task.module').then( m => m.ViewTaskPageModule)
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/view-task/view-task.module').then(m => m.ViewTaskPageModule)
   }
 
 ];
@@ -32,4 +34,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

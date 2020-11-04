@@ -1,5 +1,10 @@
-<app-header header='Sign In'></app-header>
+<app-header [routeBack]="'/home/tasks'" [hasBack]="true" [authRedirect]="'/signup'" [showHeaderAuthButton]="true" headerAuthButton="Sign Up">
+</app-header>
 
 <ion-content>
+    <div id="header">
+        <h1>Sign In</h1>
+        <img src="../../../assets//logo.png" />
+    </div>
     <app-form [authForm]='signInForm' [button]="'Sign In'" (formEvent)='postData($event)'></app-form>
 </ion-content>

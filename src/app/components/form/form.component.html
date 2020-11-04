@@ -1,8 +1,4 @@
-<div>
-  <ion-list>
-    <ion-item *ngFor="let value of authForm">
-      <ion-input [type]=value.type [placeholder]=value.placeholder [(ngModel)]="formData[value.id]"></ion-input>
-    </ion-item>
-  </ion-list>
-  <ion-button (click)='sendData()'>{{buttonTitle}}</ion-button>
+<div id="form" *ngFor="let input of authForm" class="ion-margin-bottom">
+  <ion-input [type]=input.type [placeholder]="input.placeholder" [(ngModel)]="formData[input.id]"></ion-input>
 </div>
+<ion-button expand="block" shape="round" (click)='sendData()'>{{buttonTitle}}</ion-button>

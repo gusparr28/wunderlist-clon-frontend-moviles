@@ -7,8 +7,9 @@ import { ExploreContainerComponentModule } from '../../explore-container/explore
 
 import { TasksPageRoutingModule } from './tasks-routing.module';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { ModalComponent } from 'src/app/components/modal/modal.component';
 
-@NgModule({
+@NgModule({ 
   imports: [
     IonicModule,
     CommonModule,
@@ -19,4 +20,4 @@ import { ComponentsModule } from 'src/app/components/components.module';
   ],
   declarations: [TasksPage]
 })
-export class TasksPageModule {}
+export class TasksPageModule { }

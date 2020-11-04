@@ -10,9 +10,9 @@
         "redirectTo": "home/calendar"
     },
     {
-        "icon": "file-tray",
-        "name": "Inbox",
-        "redirectTo": "home/settings"
+        "icon": "stats-chart-outline",
+        "name": "Statistics",
+        "redirectTo": ""
     },
     {
         "icon": "settings",

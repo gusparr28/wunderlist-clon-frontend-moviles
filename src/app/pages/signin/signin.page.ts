@@ -23,7 +23,6 @@ export class SigninPage implements OnInit {
   constructor(private _router: Router, private _authService: AuthService) { }
 
   ngOnInit() {
-    console.log(localStorage.getItem('token'), 'token');
   }
 
   ionViewDidLeave() {
@@ -35,9 +34,9 @@ export class SigninPage implements OnInit {
   public postData(data) {
     this.userSubscription = this._authService.signIn(data).subscribe(res => {
       localStorage.setItem('token', res.token);
-      // modal with res.message here
+      // toast with res.message here
       this._router.navigate(['home/tasks']);
-      // modal with error here
+      // toast with error here
     });
   }
 }
