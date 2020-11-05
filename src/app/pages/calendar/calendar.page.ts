@@ -7,6 +7,12 @@ import { Component } from '@angular/core';
 })
 export class CalendarPage {
 
-  constructor() {}
+  public date: string;
+  public type: 'string';
 
+  constructor() { }
+
+  onChange($event) {
+    console.log($event);
+  }
 }

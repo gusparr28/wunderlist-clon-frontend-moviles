@@ -9,13 +9,23 @@ import { TasksService } from 'src/app/services/tasks.service';
 })
 export class ModalComponent implements OnInit {
 
-  public pinnedIcon: String = 'eyedrop-outline';
-  public title: String;
-  public description: String;
+  @Input() task: any;
+  public pinnedIcon: string = 'eyedrop-outline';
+  public title: string;
+  public description: string;
 
-  constructor(private _modalCtrl: ModalController, private _tasksService: TasksService) { }
+  constructor(public modalCtrl: ModalController, private _tasksService: TasksService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    if (this.task) {
+      this.title = this.task["title"];
+      this.description = this.task["description"];
+    }
+  }
+
+  // public changePinned() {
+  //   this.task.pinned = !this.task.pinned
+  // }
 
   public togglePinnedIcon() {
     if (this.pinnedIcon == 'eyedrop-outline') {
@@ -26,15 +36,28 @@ export class ModalComponent implements OnInit {
   }
 
   public goBack() {
-    this._modalCtrl.dismiss();
+    this.modalCtrl.dismiss();
   }
 
   public createTask(title: any, description: any) {
-    console.log(title, description);
-    this._tasksService.createTask(title, description).subscribe((res: any) => {
-      this.title = res.task.title;
-      this.description = res.task.description;
-    })
-    this._modalCtrl.dismiss();
+
+    if (this.task) {
+      //End point de editar
+      this._tasksService.updateTask(this.task.id, { title: this.title, description: this.description })
+
+    } else {
+      this.onCreateTaskEvent(title, description).then((res: any) => {
+        this._tasksService.changeValue({ ...res.task });
+        this.modalCtrl.dismiss();
+      })
+    }
+  }
+
+  public onUpdateTaskEvent(id, task) {
+    return
+  }
+
+  public onCreateTaskEvent(title, description) {
+    return this._tasksService.createTask(title, description).toPromise();
   }
 }

@@ -1,5 +1,4 @@
 import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +7,7 @@ import { ExploreContainerComponentModule } from '../../explore-container/explore
 
 import { CalendarPageRoutingModule } from './calendar-routing.module';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { CalendarModule } from 'ion2-calendar';
 
 @NgModule({
   imports: [
@@ -16,7 +16,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     ExploreContainerComponentModule,
     CalendarPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    CalendarModule
   ],
   declarations: [CalendarPage]
 })

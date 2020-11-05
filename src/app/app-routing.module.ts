@@ -20,11 +20,6 @@ const routes: Routes = [
     path: 'profile',
     canActivate: [AuthGuard],
     loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfilePageModule)
-  },
-  {
-    path: 'home/tasks/:id',
-    canActivate: [AuthGuard],
-    loadChildren: () => import('./pages/view-task/view-task.module').then(m => m.ViewTaskPageModule)
   }
 
 ];

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
@@ -16,13 +16,31 @@ export class TasksPage {
   public menuData: menuData[] = [];
   public tasks: any = [];
   public tasksSubscription: Subscription;
+  public changeSubscription: Subscription
+
+  public tasksPinned: any[] = []
+  public tasksNotPinned: any[] = []
 
   constructor(private _tasksService: TasksService,
     private _modalCtrl: ModalController
-  ) { }
+  ) {
+    this.changeSubscription = this._tasksService.detectChange().subscribe((res) => {
+      this.tasks = [...this.tasks, res];
+      this.tasksNotPinned = this.tasks.filter(v => v.pinned == false)
+      this.tasksPinned = this.tasks.filter(v => v.pinned == true)
+    })
+  }
 
   ngOnInit() {
-    this._tasksService.getTasksByUser().subscribe((res: any) => {
+    this.tasksSubscription = this._tasksService.getTasksByUser().subscribe((res: any) => {
+      this.tasks = res.tasks;
+      this.tasksNotPinned = this.tasks.filter(v => v.pinned == false)
+      this.tasksPinned = this.tasks.filter(v => v.pinned == true)
+    })
+  }
+
+  ionViewWillEnter() {
+    this.tasksSubscription = this._tasksService.getTasksByUser().subscribe((res: any) => {
       this.tasks = res.tasks;
     })
   }
@@ -38,5 +56,4 @@ export class TasksPage {
     });
     return await modal.present();
   }
-
 }

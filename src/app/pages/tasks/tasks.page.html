@@ -2,6 +2,13 @@
 
 <ion-content>
   <app-task *ngFor="let task of tasks" [task]="task"></app-task>
+
+  <ion-list>
+    <ion-item [style]="{ 'margin-top' : '70px' }">Pinned</ion-item>
+  </ion-list>
+
+  <app-task [style]="{ 'margin-top' : '50px' }" *ngFor="let task of tasks" [task]="task"></app-task>
+
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="showModal()">
       <ion-icon name="add"></ion-icon>
