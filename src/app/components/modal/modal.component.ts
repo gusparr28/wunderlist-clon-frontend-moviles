@@ -13,6 +13,10 @@ export class ModalComponent implements OnInit {
   public pinnedIcon: string = 'eyedrop-outline';
   public title: string;
   public description: string;
+  public priority: string;
+  public date: string;
+  public time: string;
+  public pinned: boolean;
 
   constructor(public modalCtrl: ModalController, private _tasksService: TasksService) { }
 
@@ -20,19 +24,21 @@ export class ModalComponent implements OnInit {
     if (this.task) {
       this.title = this.task["title"];
       this.description = this.task["description"];
+      if (this.task.pinned) {
+        this.pinnedIcon = 'eyedrop';
+      } else {
+        this.pinnedIcon = 'eyedrop-outline';
+      }
     }
   }
 
-  // public changePinned() {
-  //   this.task.pinned = !this.task.pinned
-  // }
-
   public togglePinnedIcon() {
-    if (this.pinnedIcon == 'eyedrop-outline') {
+    if (!this.task.pinned) {
       this.pinnedIcon = 'eyedrop';
     } else {
       this.pinnedIcon = 'eyedrop-outline';
     }
+    this.task.pinned = !this.task.pinned;
   }
 
   public goBack() {
@@ -40,24 +46,29 @@ export class ModalComponent implements OnInit {
   }
 
   public createTask(title: any, description: any) {
-
     if (this.task) {
-      //End point de editar
-      this._tasksService.updateTask(this.task.id, { title: this.title, description: this.description })
-
+      let task = {
+        ...this.task,
+        title: this.title,
+        description: this.description
+      };
+      this.onUpdateTaskEvent(task).then((res: any) => {
+        this._tasksService.changeValue({ ...res.task });
+        this.modalCtrl.dismiss();
+      });
     } else {
       this.onCreateTaskEvent(title, description).then((res: any) => {
         this._tasksService.changeValue({ ...res.task });
         this.modalCtrl.dismiss();
-      })
+      });
     }
   }
 
-  public onUpdateTaskEvent(id, task) {
-    return
+  public onUpdateTaskEvent(task: any) {
+    return this._tasksService.updateTask(task._id, task).toPromise();
   }
 
-  public onCreateTaskEvent(title, description) {
+  public onCreateTaskEvent(title: any, description: any) {
     return this._tasksService.createTask(title, description).toPromise();
   }
 }

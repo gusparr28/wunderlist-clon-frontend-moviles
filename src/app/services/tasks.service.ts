@@ -10,9 +10,10 @@ export class TasksService {
 
   public headers = { 'Authorization': 'Bearer ' + localStorage.getItem('token') };
   private _getTasksByUserUrl: string = "http://localhost:3000/task";
-  private _getTasksByIdUrl: string = "http://localhost:3000/task/";
   private _createTaskUrl: string = "http://localhost:3000/task";
+  private _getTasksByIdUrl: string = "http://localhost:3000/task/";
   private _updateTaskUrl: string = "http://localhost:3000/task/";
+  private _deleteTaskUrl: string = "http://localhost:3000/task/";
 
   private _changeUser: Subject<any> = new Subject<any>();
 
@@ -37,14 +38,14 @@ export class TasksService {
     }, { headers: this.headers });
   }
 
-  public updateTask(id, task) {
+  public updateTask(id: any, task: any) {
     return this._http.put(this._updateTaskUrl + id, {
-      task
+      ...task
     }, { headers: this.headers });
   }
 
-  public deleteTask() {
-
+  public deleteTask(id) {
+    return this._http.delete(this._deleteTaskUrl + id, { headers: this.headers })
   }
 
   public changeValue(value) {
@@ -54,5 +55,4 @@ export class TasksService {
   public detectChange() {
     return this._changeUser.asObservable();
   }
-
 }

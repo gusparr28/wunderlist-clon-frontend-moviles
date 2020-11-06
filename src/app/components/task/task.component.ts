@@ -15,14 +15,9 @@ export class TaskComponent implements OnInit {
 
   constructor(private _router: Router, private _modalCtrl: ModalController) { }
 
-  ngOnInit() {
-
-    
-
-   }
+  ngOnInit() { }
 
   public async viewTask(task) {
-    // this._router.navigate([`home/tasks/${task._id}`]);
     const modal = await this._modalCtrl.create({
       component: ModalComponent,
       componentProps: {

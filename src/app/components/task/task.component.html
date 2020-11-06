@@ -1,6 +1,12 @@
-<ion-list (click)="viewTask(task)" *ngIf="task">
+<!-- <ion-list (click)="viewTask(task)" *ngIf="task">
   <ion-item>{{task.title}}</ion-item>
   <ion-item>
     <p>{{task.description}}</p>
   </ion-item>
-</ion-list>
+</ion-list> -->
+
+  
+  <ion-col (click)="viewTask(task)" size = "6"> 
+    {{ task.title }}
+  </ion-col>
+  

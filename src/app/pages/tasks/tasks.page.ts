@@ -17,31 +17,29 @@ export class TasksPage {
   public tasks: any = [];
   public tasksSubscription: Subscription;
   public changeSubscription: Subscription
-
-  public tasksPinned: any[] = []
-  public tasksNotPinned: any[] = []
+  public tasksPinned: any[] = [];
+  public tasksNotPinned: any[] = [];
 
   constructor(private _tasksService: TasksService,
     private _modalCtrl: ModalController
   ) {
     this.changeSubscription = this._tasksService.detectChange().subscribe((res) => {
-      this.tasks = [...this.tasks, res];
-      this.tasksNotPinned = this.tasks.filter(v => v.pinned == false)
-      this.tasksPinned = this.tasks.filter(v => v.pinned == true)
+      const index = this.tasks.findIndex((v: any) => v._id === res._id);
+      if (index !== -1) {
+        this.tasks[index] = res;
+      } else {
+        this.tasks = [...this.tasks, res];
+      };
+      this.tasksNotPinned = this.tasks.filter((t: any) => t.pinned == false);
+      this.tasksPinned = this.tasks.filter((t: any) => t.pinned == true);
     })
   }
 
   ngOnInit() {
     this.tasksSubscription = this._tasksService.getTasksByUser().subscribe((res: any) => {
       this.tasks = res.tasks;
-      this.tasksNotPinned = this.tasks.filter(v => v.pinned == false)
-      this.tasksPinned = this.tasks.filter(v => v.pinned == true)
-    })
-  }
-
-  ionViewWillEnter() {
-    this.tasksSubscription = this._tasksService.getTasksByUser().subscribe((res: any) => {
-      this.tasks = res.tasks;
+      this.tasksNotPinned = this.tasks.filter((t: any) => t.pinned == false);
+      this.tasksPinned = this.tasks.filter((t: any) => t.pinned == true);
     })
   }
 

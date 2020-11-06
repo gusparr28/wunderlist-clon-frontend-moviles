@@ -2,6 +2,9 @@
   <app-header header="Menu"></app-header>
   <ion-content>
     <ion-list>
+      <ion-item>
+        <ion-label>{{name}}</ion-label>
+      </ion-item>
       <ion-menu-toggle *ngFor="let item of menuData | async">
         <ion-item [routerLink]="item.redirectTo">
           <ion-icon slot="start" [name]="item.icon"></ion-icon>
