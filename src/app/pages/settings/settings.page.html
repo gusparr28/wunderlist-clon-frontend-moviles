@@ -1,23 +1,16 @@
 <app-header header='Settings'></app-header>
 
 <ion-content>
-  <ion-card>
-    <ion-card-content>
-      Gustavo
-    </ion-card-content>
-  </ion-card>
   <ion-list>
+    <ion-item routerLink="/profile">
+      Profile
+    </ion-item>
     <ion-item>
       Preferences
     </ion-item>
     <ion-item>
-      Statistics
-    </ion-item>
-    <ion-item>
       About Us
     </ion-item>
-    <ion-item>
-      Sign Out
-    </ion-item>
+    <ion-button class="signOutBtn" color="danger" (click)="signOut()">Sign Out</ion-button>
   </ion-list>
 </ion-content>

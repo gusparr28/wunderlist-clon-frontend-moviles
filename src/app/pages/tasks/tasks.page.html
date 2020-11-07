@@ -1,16 +1,25 @@
 <app-header [showSideMenu]="true" [hasBack]="false" header="Tasks"></app-header>
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <app-task *ngFor="let task of tasksNotPinned" [task]="task"></app-task>
-    </ion-row>
-  </ion-grid>
-  <div *ngIf="tasksPinned.length > 0">
-    <ion-list>
-      <ion-item [style]="{ 'margin-top' : '70px' }">Pinned</ion-item>
-    </ion-list>
-    <app-task [style]="{ 'margin-top' : '50px' }" *ngFor="let task of tasksPinned" [task]="task"></app-task>
+
+  <ion-searchbar placeholder="Search by title" animated (ionChange)="searchTasks($event)"></ion-searchbar>
+
+  <div *ngIf="tasks.length == 0" class="noTasksContainer">
+    <img src="../../../assets/home.jpg">
+    <p><b>Start creating tasks by pressing + button.</b></p>
   </div>
+
+  <ion-list>
+    <app-task *ngFor="let task of tasksNotPinned | filter: searchTask: 'title'" [task]="task"></app-task>
+  </ion-list>
+
+  <div *ngIf="tasksPinned.length > 0">
+    <ion-item>
+      <ion-label><b>PINNED</b></ion-label>
+      <ion-icon name="eyedrop"></ion-icon>
+    </ion-item>
+    <app-task *ngFor="let task of tasksPinned" [task]="task"></app-task>
+  </div>
+
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="showModal()">
       <ion-icon name="add"></ion-icon>

@@ -12,14 +12,10 @@ import { UserService } from 'src/app/services/user.service';
 export class SidemenuComponent implements OnInit {
 
   public menuData: Observable<menuData[]>;
-  public name: string;
 
   constructor(private _menuDataService: MenuDataService, private _userService: UserService) { }
 
   ngOnInit() {
     this.menuData = this._menuDataService.getMenuData();
-    this._userService.getUserInfo().subscribe((res: any) => {
-      this.name = res.user.name;
-    });
   }
 }

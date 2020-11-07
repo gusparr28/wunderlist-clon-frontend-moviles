@@ -12,7 +12,7 @@
     {
         "icon": "stats-chart-outline",
         "name": "Statistics",
-        "redirectTo": ""
+        "redirectTo": "statistics"
     },
     {
         "icon": "settings",

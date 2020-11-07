@@ -16,12 +16,13 @@ export class TasksPage {
   public menuData: menuData[] = [];
   public tasks: any = [];
   public tasksSubscription: Subscription;
-  public changeSubscription: Subscription
+  public changeSubscription: Subscription;
   public tasksPinned: any[] = [];
   public tasksNotPinned: any[] = [];
+  public searchTask: any = '';
 
   constructor(private _tasksService: TasksService,
-    private _modalCtrl: ModalController
+    private _modalCtrl: ModalController,
   ) {
     this.changeSubscription = this._tasksService.detectChange().subscribe((res) => {
       const index = this.tasks.findIndex((v: any) => v._id === res._id);
@@ -32,19 +33,33 @@ export class TasksPage {
       };
       this.tasksNotPinned = this.tasks.filter((t: any) => t.pinned == false);
       this.tasksPinned = this.tasks.filter((t: any) => t.pinned == true);
-    })
+    });
   }
 
   ngOnInit() {
+    this.fixError();
+    this._tasksService.getTasksByUser().subscribe((res: any) => {
+      console.log(res.tasks);
+      this.tasks = res.tasks;
+    });
+  }
+
+  public fixError() {
     this.tasksSubscription = this._tasksService.getTasksByUser().subscribe((res: any) => {
       this.tasks = res.tasks;
       this.tasksNotPinned = this.tasks.filter((t: any) => t.pinned == false);
       this.tasksPinned = this.tasks.filter((t: any) => t.pinned == true);
-    })
+    });
+  }
+
+  public searchTasks(event) {
+    // console.log(event);
+    this.searchTask = event.detail.value;
   }
 
   ionViewDidLeave() {
     this.tasksSubscription.unsubscribe();
+    this.changeSubscription.unsubscribe();
   }
 
   public async showModal() {

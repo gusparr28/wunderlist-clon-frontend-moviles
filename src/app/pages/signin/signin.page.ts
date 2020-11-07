@@ -21,7 +21,7 @@ export class SigninPage implements OnInit {
   ];
   public userSubscription: Subscription;
 
-  constructor(private _router: Router, private _authService: AuthService, private _utilService: UtilsService) { }
+  constructor(private _router: Router, private _authService: AuthService, private _utilsService: UtilsService) { }
 
   ngOnInit() {
   }
@@ -31,20 +31,19 @@ export class SigninPage implements OnInit {
     this.formComponent.formData['password'] = '';
     this.userSubscription.unsubscribe();
   }
+
   public postData(data: any) {
-    this._utilService.presentLoading('Please wait...');
+    this._utilsService.present('Please wait...');
     this.userSubscription = this._authService.signIn(data).subscribe(res => {
       localStorage.setItem('token', res.token);
-      this._utilService.loading.dismiss();
       setTimeout(() => {
-        // toast with res.message here
-        this._router.navigate(['index/tasks']);
-        // toast with error here
+        this._utilsService.dismiss();
+        this._router.navigate(['home/tasks']);
       }, 500);
     }, (err) => {
-      this._utilService.loading.dismiss();
       setTimeout(() => {
-        /* Show toast */
+        this._utilsService.dismiss();
+        this._utilsService.presentToast(err.error.error, 'danger');
       }, 500);
     });
   }

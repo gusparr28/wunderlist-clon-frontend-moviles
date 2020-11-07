@@ -44,11 +44,11 @@ export class TasksService {
     }, { headers: this.headers });
   }
 
-  public deleteTask(id) {
+  public deleteTask(id: any) {
     return this._http.delete(this._deleteTaskUrl + id, { headers: this.headers })
   }
 
-  public changeValue(value) {
+  public changeValue(value: any) {
     this._changeUser.next(value);
   }
 

@@ -4,31 +4,11 @@
 
 ion-card {
     overflow: unset !important;
-}
-
-ion-card {
     height: 200px;
     width: 300px;
 }
 
-.slide-image {
-    width: 100px;
-    text-align: center;
-
-    display: block;
-    margin-left: auto;
-    margin-top: auto;
-
-    position: relative;
-    top: -50px;
-}
-
 ion-card-header {
-    position: relative;
-    top: -50px;
-}
-
-ion-card-content {
     position: relative;
     top: -50px;
 }

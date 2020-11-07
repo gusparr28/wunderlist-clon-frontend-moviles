@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-settings',
@@ -7,6 +9,14 @@ import { Component } from '@angular/core';
 })
 export class SettingsPage {
 
-  constructor() {}
+  constructor(private _router: Router, private _utilsService: UtilsService) { }
 
+  public signOut() {
+    this._utilsService.present('Please wait...');
+    localStorage.removeItem('token');
+    setTimeout(() => {
+      this._utilsService.dismiss();
+      this._router.navigate(['/signin']);
+    }, 500)
+  }
 }

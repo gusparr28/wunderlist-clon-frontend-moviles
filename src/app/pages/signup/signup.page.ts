@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormComponent } from 'src/app/components/form/form.component';
 import { AuthService } from 'src/app/services/auth.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-signup',
@@ -13,14 +14,19 @@ export class SignupPage implements OnInit {
 
   @ViewChild(FormComponent) formComponent: FormComponent;
 
+  public showPassword: boolean = false;
+  public passwordToggleIcon: string = 'eye-outline';
   public signUpForm: any = [
     { id: 'name', placeholder: 'Name' },
     { id: 'email', placeholder: 'Email' },
     { id: 'password', type: 'password', placeholder: 'Password: 6-64 characters' }
-  ]
+  ];
   public userSubscription: Subscription;
 
-  constructor(private _router: Router, private _authService: AuthService) { }
+  constructor(private _router: Router,
+    private _authService: AuthService,
+    private _utilsService: UtilsService
+  ) { }
 
   ngOnInit() {
   }
@@ -32,11 +38,18 @@ export class SignupPage implements OnInit {
     this.userSubscription.unsubscribe();
   }
 
-  public postData(data) {
+  public postData(data: any) {
+    this._utilsService.present('Please wait...');
     this.userSubscription = this._authService.signUp(data).subscribe(res => {
-      // toast with res.message here
-      this._router.navigate(['/']);
-      // toast with error here
+      this._utilsService.dismiss();
+      setTimeout(() => {
+        this._router.navigate(['/signin']);
+      }, 500);
+    }, (err) => {
+      this._utilsService.dismiss();
+      setTimeout(() => {
+        this._utilsService.presentToast(err.error.error, 'danger');
+      }, 500);
     });
   }
 }

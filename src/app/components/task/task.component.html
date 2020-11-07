@@ -1,12 +1,13 @@
-<!-- <ion-list (click)="viewTask(task)" *ngIf="task">
-  <ion-item>{{task.title}}</ion-item>
-  <ion-item>
-    <p>{{task.description}}</p>
-  </ion-item>
-</ion-list> -->
-
-  
-  <ion-col (click)="viewTask(task)" size = "6"> 
-    {{ task.title }}
-  </ion-col>
-  
+<ion-list>
+  <ion-item-sliding>
+    <ion-item (click)="viewTask(task)">
+      {{task.title}}<br />
+      {{task.description}}
+    </ion-item>
+    <ion-item-options side="end">
+      <ion-item-option color="danger" (click)="deleteTask()">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+</ion-list>

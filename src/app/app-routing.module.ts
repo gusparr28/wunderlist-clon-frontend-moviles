@@ -4,7 +4,7 @@ import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'index',
+    path: 'home',
     canActivate: [AuthGuard],
     loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule),
   },
@@ -13,7 +13,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/signup/signup.module').then(m => m.SignupPageModule)
   },
   {
-    path: '',
+    path: 'signin',
     loadChildren: () => import('./pages/signin/signin.module').then(m => m.SigninPageModule)
   },
   {
@@ -22,9 +22,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfilePageModule)
   },
   {
-    path: 'home',
+    path: '',
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
+  },
+  {
+    path: 'statistics',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/statistics/statistics.module').then( m => m.StatisticsPageModule)
   }
+
 ];
 @NgModule({
   imports: [

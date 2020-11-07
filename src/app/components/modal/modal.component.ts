@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+
 import { TasksService } from 'src/app/services/tasks.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-modal',
@@ -18,7 +20,10 @@ export class ModalComponent implements OnInit {
   public time: string;
   public pinned: boolean;
 
-  constructor(public modalCtrl: ModalController, private _tasksService: TasksService) { }
+  constructor(private _modalCtrl: ModalController,
+    private _tasksService: TasksService,
+    private _utilsService: UtilsService
+  ) { }
 
   ngOnInit() {
     if (this.task) {
@@ -42,7 +47,7 @@ export class ModalComponent implements OnInit {
   }
 
   public goBack() {
-    this.modalCtrl.dismiss();
+    this._modalCtrl.dismiss();
   }
 
   public createTask(title: any, description: any) {
@@ -54,21 +59,31 @@ export class ModalComponent implements OnInit {
       };
       this.onUpdateTaskEvent(task).then((res: any) => {
         this._tasksService.changeValue({ ...res.task });
-        this.modalCtrl.dismiss();
+        this._utilsService.dismiss();
+        setTimeout(() => {
+          this._modalCtrl.dismiss();
+          this._utilsService.presentToast(res.message, 'success');
+        }, 500)
       });
     } else {
       this.onCreateTaskEvent(title, description).then((res: any) => {
         this._tasksService.changeValue({ ...res.task });
-        this.modalCtrl.dismiss();
+        this._utilsService.dismiss();
+        setTimeout(() => {
+          this._modalCtrl.dismiss();
+          this._utilsService.presentToast(res.message, 'success');
+        }, 500)
       });
     }
   }
 
   public onUpdateTaskEvent(task: any) {
+    this._utilsService.present('Please wait...');
     return this._tasksService.updateTask(task._id, task).toPromise();
   }
 
   public onCreateTaskEvent(title: any, description: any) {
+    this._utilsService.present('Please wait...');
     return this._tasksService.createTask(title, description).toPromise();
   }
 }
