@@ -4,24 +4,22 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
 
-  public headers = { 'Authorization': 'Bearer ' + localStorage.getItem('token') };
+export class UserService {
   private _getUserInfoUrl: string = "http://localhost:3000/profile";
+  private _signOutUserUrl: string = "http://localhost:3000/signout";
 
   constructor(private _http: HttpClient) { }
 
-  public getUserInfo() {
+  public getUserInfo(token: string) {
     return this._http.get(this._getUserInfoUrl, {
-      headers: this.headers
+      headers: { 'Authorization': 'Bearer ' + token }
     });
   };
 
-  public editUser() {
-
-  }
-
-  public deleteUser() {
-
-  }
+  public signOutUser(token: string) {
+    return this._http.get(this._signOutUserUrl, {
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+  };
 }

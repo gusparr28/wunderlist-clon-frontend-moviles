@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+
+import { TasksService } from 'src/app/services/tasks.service';
 
 @Component({
   selector: 'app-header',
@@ -16,9 +18,21 @@ export class HeaderComponent implements OnInit {
   @Input() public headerAuthButton: string;
   @Input() public showHeaderAuthButton: boolean;
   @Input() public authRedirect: string;
+  @Input() public dateTimeButtons: boolean;
+  @Input() public date: any;
+  @Input() public time: any;
 
-  constructor() { }
+  constructor(private _modalCtrl: ModalController, private _taskService: TasksService) { }
 
   ngOnInit() { }
+
+  public closeDateTimeModal() {
+    this._modalCtrl.dismiss();
+  }
+
+  public saveDateTime(event: any) {
+    this._taskService.changeDateTime({ date: this.date, time: this.time });
+    this._modalCtrl.dismiss();
+  }
 
 }

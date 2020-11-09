@@ -28,9 +28,8 @@ const routes: Routes = [
   {
     path: 'statistics',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./pages/statistics/statistics.module').then( m => m.StatisticsPageModule)
+    loadChildren: () => import('./pages/statistics/statistics.module').then(m => m.StatisticsPageModule)
   }
-
 ];
 @NgModule({
   imports: [

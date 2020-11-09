@@ -4,10 +4,10 @@
     <ion-button (click)="togglePinnedIcon()">
       <ion-icon slot="end" [name]="pinnedIcon"></ion-icon>
     </ion-button>
-    <ion-button>
+    <ion-button (click)="openDateTime()">
       <ion-icon slot="end" name="notifications"></ion-icon>
     </ion-button>
-    <ion-button>
+    <ion-button (click)="showPriorities($event)">
       <ion-icon slot="end" name="alert-outline"></ion-icon>
     </ion-button>
   </ion-buttons>
@@ -21,7 +21,7 @@
     <ion-item>
       <ion-input type="text" placeholder="Description" [(ngModel)]="description"></ion-input>
     </ion-item>
-    <ion-toolbar>
+    <ion-toolbar no-border>
       <ion-buttons slot="primary">
         <ion-button (click)="createTask(title, description)">
           <ion-icon slot="end" name="send"></ion-icon>

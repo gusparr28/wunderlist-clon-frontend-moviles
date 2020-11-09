@@ -23,7 +23,7 @@ export class StatisticsPage implements OnInit {
     responsive: true,
     title: {
       display: true,
-      text: 'Historic Stock price'
+      text: 'Historic tasks completed'
     },
     pan: {
       enabled: true,

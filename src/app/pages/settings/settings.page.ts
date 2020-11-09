@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+
+import { UserService } from 'src/app/services/user.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -9,14 +10,37 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class SettingsPage {
 
-  constructor(private _router: Router, private _utilsService: UtilsService) { }
+  public darkMode: boolean = false;
+  public changeIcon: boolean = true;
+  public themeToggleIcon: string = 'moon';
+
+  constructor(private _utilsService: UtilsService,
+    private _userService: UserService
+  ) {
+  }
+
+  ngOnInit() { }
+
+  public changeTheme() {
+    if (this.themeToggleIcon == 'moon') {
+      this.darkMode = !this.darkMode;
+      document.body.classList.toggle('dark');
+      this.themeToggleIcon = 'sunny';
+    } else {
+      this.darkMode = !this.darkMode;
+      document.body.classList.toggle('dark');
+      this.themeToggleIcon = 'moon';
+    }
+  };
 
   public signOut() {
+    let token = localStorage.getItem('token');
     this._utilsService.present('Please wait...');
-    localStorage.removeItem('token');
-    setTimeout(() => {
-      this._utilsService.dismiss();
-      this._router.navigate(['/signin']);
-    }, 500)
+    this._userService.signOutUser(token).subscribe((res: any) => {
+      setTimeout(() => {
+        this._utilsService.dismiss();
+        window.location.href = '/signin';
+      }, 500);
+    });
   }
 }

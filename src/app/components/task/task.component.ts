@@ -1,10 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
-import { TasksPage } from 'src/app/pages/tasks/tasks.page';
-import { TasksService } from 'src/app/services/tasks.service';
-import { UtilsService } from 'src/app/services/utils.service';
 
 import { ModalComponent } from '../modal/modal.component';
+import { TasksService } from 'src/app/services/tasks.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-task',
@@ -14,6 +13,8 @@ import { ModalComponent } from '../modal/modal.component';
 export class TaskComponent implements OnInit {
 
   @Input() task: any;
+  @Output() deletedTask = new EventEmitter<string>()
+  public priorityType: string;
 
   constructor(private _modalCtrl: ModalController,
     private _alertCtrl: AlertController,
@@ -21,15 +22,22 @@ export class TaskComponent implements OnInit {
     private _utilsService: UtilsService
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    if (this.task.priority === "High Priority") {
+      this.priorityType = "danger";
+    } if (this.task.priority === "Medium Priority") {
+      this.priorityType = "warning";
+    } if (this.task.priority === "Low Priority") {
+      this.priorityType = "secondary";
+    }
+  }
 
-  public async viewTask(task: any) {
+  public async viewTask() {
     const modal = await this._modalCtrl.create({
       component: ModalComponent,
       componentProps: {
-        task
-      },
-      cssClass: 'my-custom-modal'
+        task: this.task
+      }
     });
     return await modal.present();
   }
@@ -47,9 +55,9 @@ export class TaskComponent implements OnInit {
           handler: () => {
             this._utilsService.present('Please wait...');
             this._tasksService.deleteTask(this.task._id).subscribe((res: any) => {
-              this._utilsService.dismiss();
               setTimeout(() => {
-                
+                this._utilsService.dismiss();
+                this.deletedTask.emit(this.task);
                 this._utilsService.presentToast(res.message, 'danger');
               }, 500);
             });

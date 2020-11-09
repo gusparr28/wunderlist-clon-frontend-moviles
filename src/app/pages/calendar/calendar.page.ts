@@ -8,11 +8,11 @@ import { Component } from '@angular/core';
 export class CalendarPage {
 
   public date: string;
-  public type: 'string';
+  public type: string;
 
   constructor() { }
 
-  onChange($event) {
+  onChange($event: any) {
     console.log($event);
   }
 }

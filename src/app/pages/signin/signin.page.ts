@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { Subscription } from 'rxjs';
 
 import { FormComponent } from 'src/app/components/form/form.component';
@@ -29,16 +30,16 @@ export class SigninPage implements OnInit {
   ionViewDidLeave() {
     this.formComponent.formData['email'] = '';
     this.formComponent.formData['password'] = '';
-    this.userSubscription.unsubscribe();
+    this.userSubscription?.unsubscribe();
   }
 
   public postData(data: any) {
     this._utilsService.present('Please wait...');
     this.userSubscription = this._authService.signIn(data).subscribe(res => {
-      localStorage.setItem('token', res.token);
       setTimeout(() => {
         this._utilsService.dismiss();
         this._router.navigate(['home/tasks']);
+        window.localStorage.setItem('token', res.token);
       }, 500);
     }, (err) => {
       setTimeout(() => {

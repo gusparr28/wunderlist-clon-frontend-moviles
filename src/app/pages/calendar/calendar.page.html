@@ -1,8 +1,4 @@
-<app-header header='Calendar'></app-header>
-
 <ion-content>
-  <div>
     <ion-calendar [(ngModel)]="date" (change)="onChange($event)" [type]="type" [format]="'YYYY-MM-DD'">
     </ion-calendar>
-  </div>
 </ion-content>

@@ -14,14 +14,14 @@ export class TasksService {
   private _getTasksByIdUrl: string = "http://localhost:3000/task/";
   private _updateTaskUrl: string = "http://localhost:3000/task/";
   private _deleteTaskUrl: string = "http://localhost:3000/task/";
-
-  private _changeUser: Subject<any> = new Subject<any>();
+  private _changeTask: Subject<any> = new Subject<any>();
+  private _changeDateTime: Subject<any> = new Subject<any>();
 
   constructor(private _http: HttpClient) { }
 
-  public getTasksByUser() {
+  public getTasksByUser(token: string) {
     return this._http.get(this._getTasksByUserUrl, {
-      headers: this.headers
+      headers: { 'Authorization': 'Bearer ' + token }
     });
   }
 
@@ -31,10 +31,9 @@ export class TasksService {
     });
   }
 
-  public createTask(title: any, description: any): Observable<any> {
+  public createTask(task: any): Observable<any> {
     return this._http.post<any>(this._createTaskUrl, {
-      title,
-      description
+      ...task
     }, { headers: this.headers });
   }
 
@@ -49,10 +48,18 @@ export class TasksService {
   }
 
   public changeValue(value: any) {
-    this._changeUser.next(value);
+    this._changeTask.next(value);
   }
 
   public detectChange() {
-    return this._changeUser.asObservable();
+    return this._changeTask.asObservable();
+  }
+
+  public changeDateTime(value: any) {
+    this._changeDateTime.next(value)
+  }
+
+  public detectChangeDateTime() {
+    return this._changeDateTime.asObservable()
   }
 }

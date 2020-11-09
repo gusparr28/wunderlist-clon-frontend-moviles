@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Subscription } from 'rxjs';
-import { ModalComponent } from 'src/app/components/modal/modal.component';
 
+import { Subscription } from 'rxjs';
+
+import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { menuData } from 'src/app/interfaces/menuData';
 import { TasksService } from 'src/app/services/tasks.service';
 
@@ -20,10 +21,12 @@ export class TasksPage {
   public tasksPinned: any[] = [];
   public tasksNotPinned: any[] = [];
   public searchTask: any = '';
+  public token: string;
 
   constructor(private _tasksService: TasksService,
-    private _modalCtrl: ModalController,
+    private _modalCtrl: ModalController
   ) {
+    this.token = localStorage.getItem('token');
     this.changeSubscription = this._tasksService.detectChange().subscribe((res) => {
       const index = this.tasks.findIndex((v: any) => v._id === res._id);
       if (index !== -1) {
@@ -37,23 +40,22 @@ export class TasksPage {
   }
 
   ngOnInit() {
-    this.fixError();
-    this._tasksService.getTasksByUser().subscribe((res: any) => {
-      console.log(res.tasks);
-      this.tasks = res.tasks;
-    });
-  }
-
-  public fixError() {
-    this.tasksSubscription = this._tasksService.getTasksByUser().subscribe((res: any) => {
+    this.tasksSubscription = this._tasksService.getTasksByUser(this.token).subscribe((res: any) => {
       this.tasks = res.tasks;
       this.tasksNotPinned = this.tasks.filter((t: any) => t.pinned == false);
       this.tasksPinned = this.tasks.filter((t: any) => t.pinned == true);
     });
   }
 
-  public searchTasks(event) {
-    // console.log(event);
+  ionViewWillEnter() {
+    this.tasksSubscription = this._tasksService.getTasksByUser(this.token).subscribe((res: any) => {
+      this.tasks = res.tasks;
+      this.tasksNotPinned = this.tasks.filter((t: any) => t.pinned == false);
+      this.tasksPinned = this.tasks.filter((t: any) => t.pinned == true);
+    });
+  }
+
+  public searchTasks(event: any) {
     this.searchTask = event.detail.value;
   }
 
@@ -62,11 +64,16 @@ export class TasksPage {
     this.changeSubscription.unsubscribe();
   }
 
-  public async showModal() {
+  public async openCreateTaskModal() {
     const modal = await this._modalCtrl.create({
-      component: ModalComponent,
-      cssClass: 'my-custom-modal'
+      component: ModalComponent
     });
     return await modal.present();
+  }
+
+  public deletedTask(task: any) {
+    this.tasks = this.tasks.filter(v => v._id !== task._id)
+    this.tasksNotPinned = this.tasks.filter((t: any) => t.pinned == false);
+    this.tasksPinned = this.tasks.filter((t: any) => t.pinned == true);
   }
 }

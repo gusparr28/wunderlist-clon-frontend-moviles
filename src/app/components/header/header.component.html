@@ -1,5 +1,15 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
+    <ion-buttons *ngIf="dateTimeButtons" slot="start">
+      <ion-button (click)="closeDateTimeModal()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons *ngIf="dateTimeButtons" slot="end">
+      <ion-button (click)="saveDateTime($event)">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-buttons slot="start">
       <ion-back-button *ngIf="hasBack" [defaultHref]="routeBack"></ion-back-button>
       <ion-menu-button *ngIf="showSideMenu" menu="first"></ion-menu-button>

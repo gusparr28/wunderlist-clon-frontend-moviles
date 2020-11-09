@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { Subscription } from 'rxjs';
+
 import { FormComponent } from 'src/app/components/form/form.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -35,19 +37,19 @@ export class SignupPage implements OnInit {
     this.formComponent.formData['name'] = '';
     this.formComponent.formData['email'] = '';
     this.formComponent.formData['password'] = '';
-    this.userSubscription.unsubscribe();
+    this.userSubscription?.unsubscribe();
   }
 
   public postData(data: any) {
     this._utilsService.present('Please wait...');
     this.userSubscription = this._authService.signUp(data).subscribe(res => {
-      this._utilsService.dismiss();
       setTimeout(() => {
+        this._utilsService.dismiss();
         this._router.navigate(['/signin']);
       }, 500);
     }, (err) => {
-      this._utilsService.dismiss();
       setTimeout(() => {
+        this._utilsService.dismiss();
         this._utilsService.presentToast(err.error.error, 'danger');
       }, 500);
     });
