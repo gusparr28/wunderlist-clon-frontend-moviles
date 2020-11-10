@@ -4,7 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
 import { ModalComponent } from 'src/app/components/modal/modal.component';
-import { menuData } from 'src/app/interfaces/menuData';
+import { MenuData } from 'src/app/interfaces/MenuData';
 import { TasksService } from 'src/app/services/tasks.service';
 
 @Component({
@@ -14,7 +14,10 @@ import { TasksService } from 'src/app/services/tasks.service';
 })
 export class TasksPage {
 
-  public menuData: menuData[] = [];
+  public items = [
+    'Pizza', 'Hamburguesa', 'Pasta', 'Arroz', 'Pimenton'
+  ];
+  public menuData: MenuData[] = [];
   public tasks: any = [];
   public tasksSubscription: Subscription;
   public changeSubscription: Subscription;
@@ -37,6 +40,10 @@ export class TasksPage {
       this.tasksNotPinned = this.tasks.filter((t: any) => t.pinned == false);
       this.tasksPinned = this.tasks.filter((t: any) => t.pinned == true);
     });
+  }
+
+  public reorder(event: any) {
+    event.detail.complete();
   }
 
   ngOnInit() {

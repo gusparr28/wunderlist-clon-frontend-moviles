@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { menuData } from 'src/app/interfaces/menuData';
+import { MenuData } from 'src/app/interfaces/MenuData';
 import { MenuDataService } from 'src/app/services/menuData.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,7 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class SidemenuComponent implements OnInit {
 
-  public menuData: Observable<menuData[]>;
+  public menuData: Observable<MenuData[]>;
 
   constructor(private _menuDataService: MenuDataService, private _userService: UserService) { }
 

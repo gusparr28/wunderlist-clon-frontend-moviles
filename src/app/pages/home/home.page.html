@@ -1,16 +1,18 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <img src="assets/person.jpg" class="avatar">
+    <img src="https://res.cloudinary.com/instagram-web2/image/upload/v1604963821/wunderlist-clon-moviles/person_qbie2q.png" class="avatar">
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-slides pager="true" class="slide-full">
     <ion-slide *ngFor="let slide of slides">
-      <ion-card>
-        <img [src]="slide.img">
-      </ion-card>
-      <ion-card-header>{{slide.description}}</ion-card-header>
+      <div>
+        <ion-card>
+          <img [src]="slide.img">
+        </ion-card>
+        <ion-label>{{slide.description}}</ion-label>
+      </div>
     </ion-slide>
     <ion-slide>
       <ion-button expand="full" color="primary" fill="clear" (click)="start()">Start the journey!</ion-button>

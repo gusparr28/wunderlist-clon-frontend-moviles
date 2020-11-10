@@ -5,11 +5,6 @@
     <ion-item routerLink="/profile">
       Profile
     </ion-item>
-    <ion-item>
-      <ion-label>Toggle Dark Mode</ion-label>
-      <ion-icon [name]="themeToggleIcon"></ion-icon>
-      <ion-toggle slot="end" [ngModel]="darkMode" (ionChange)="changeTheme()"></ion-toggle>
-    </ion-item>
     <ion-button class="signOutBtn" color="danger" (click)="signOut()">Sign Out</ion-button>
   </ion-list>
 </ion-content>

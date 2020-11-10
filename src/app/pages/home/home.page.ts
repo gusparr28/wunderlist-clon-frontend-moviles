@@ -10,15 +10,15 @@ export class HomePage implements OnInit {
 
   slides: { img: string, description: string }[] = [
     {
-      img: "/assets/slides/slide01.png",
+      img: "https://res.cloudinary.com/instagram-web2/image/upload/v1604963762/wunderlist-clon-moviles/slide06_pljtrm.jpg",
       description: "Organize your ideas in an easy way"
     },
     {
-      img: "/assets/slides/slide02.png",
+      img: "https://res.cloudinary.com/instagram-web2/image/upload/v1604963796/wunderlist-clon-moviles/slide04_kbttiz.jpg",
       description: "Prioritize your objectives"
     },
     {
-      img: "/assets/slides/slide03.png",
+      img: "https://res.cloudinary.com/instagram-web2/image/upload/v1604963786/wunderlist-clon-moviles/slide03_cxaeww.png",
       description: "Set goals"
     }
   ]

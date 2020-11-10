@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 })
 
 export class UserService {
-  private _getUserInfoUrl: string = "http://localhost:3000/profile";
-  private _signOutUserUrl: string = "http://localhost:3000/signout";
+  private _getUserInfoUrl: string = "https://wunderlist-clon-moviles.herokuapp.com/profile";
+  private _signOutUserUrl: string = "https://wunderlist-clon-moviles.herokuapp.com/signout";
 
   constructor(private _http: HttpClient) { }
 

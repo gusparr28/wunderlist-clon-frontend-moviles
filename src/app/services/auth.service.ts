@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-  private _signUpUrl = 'http://localhost:3000/signup';
-  private _signInUrl = 'http://localhost:3000/signin';
+  private _signUpUrl = 'https://wunderlist-clon-moviles.herokuapp.com/signup';
+  private _signInUrl = 'https://wunderlist-clon-moviles.herokuapp.com/signin';
 
   constructor(private http: HttpClient) { }
 

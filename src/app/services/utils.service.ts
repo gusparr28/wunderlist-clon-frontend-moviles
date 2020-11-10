@@ -40,18 +40,8 @@ export class UtilsService {
     return this.toast.present();
   }
 
-  public checkDarkMode() {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-    if (prefersDark.matches) {
-      document.body.classList.toggle('dark');
-    };
-  }
-
   public async activateNotifications(time: any, date: any) {
     await LocalNotifications.requestPermission();
-
-    // schedule de onesignal, push notification aqui
-
     await LocalNotifications.schedule({
       notifications: [
         {

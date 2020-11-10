@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController, PopoverController } from '@ionic/angular';
-
 import { Subscription } from 'rxjs';
 
 import { TasksService } from 'src/app/services/tasks.service';
@@ -20,11 +19,11 @@ export class ModalComponent implements OnInit {
   public title: string;
   public description: string;
   public priority: string;
-  public date: string;
-  public time: string;
+  public date: any;
+  public time: any;
   public pinned: boolean;
-  public dateSubscription: Subscription
-  public timeSubscription: Subscription
+  public dateSubscription: Subscription;
+  public timeSubscription: Subscription;
 
   constructor(private _modalCtrl: ModalController,
     private _tasksService: TasksService,
@@ -86,7 +85,7 @@ export class ModalComponent implements OnInit {
     } else {
       if (this.task) {
         this.onUpdateTaskEvent(task).then((res: any) => {
-          this._utilsService.activateNotifications(this.time, this.date)
+          this._utilsService.activateNotifications(this.time, this.date);
           this._tasksService.changeValue({ ...res.task });
           setTimeout(() => {
             this._utilsService.dismiss();
@@ -96,7 +95,7 @@ export class ModalComponent implements OnInit {
         });
       } else {
         this.onCreateTaskEvent(task).then((res: any) => {
-          this._utilsService.activateNotifications(this.time, this.date)
+          this._utilsService.activateNotifications(this.time, this.date);
           this._tasksService.changeValue({ ...res.task });
           setTimeout(() => {
             this._utilsService.dismiss();
@@ -109,11 +108,13 @@ export class ModalComponent implements OnInit {
   }
 
   public onUpdateTaskEvent(task: any) {
+    console.log('updateTaskEvent', task);
     this._utilsService.present('Please wait...');
     return this._tasksService.updateTask(task._id, task).toPromise();
   }
 
   public onCreateTaskEvent(task: any) {
+    console.log('createTaskEvent', task);
     this._utilsService.present('Please wait...');
     return this._tasksService.createTask(task).toPromise();
   }

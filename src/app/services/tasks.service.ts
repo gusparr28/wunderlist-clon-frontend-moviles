@@ -9,11 +9,10 @@ import { Subject } from 'rxjs';
 export class TasksService {
 
   public headers = { 'Authorization': 'Bearer ' + localStorage.getItem('token') };
-  private _getTasksByUserUrl: string = "http://localhost:3000/task";
-  private _createTaskUrl: string = "http://localhost:3000/task";
-  private _getTasksByIdUrl: string = "http://localhost:3000/task/";
-  private _updateTaskUrl: string = "http://localhost:3000/task/";
-  private _deleteTaskUrl: string = "http://localhost:3000/task/";
+  private _getTasksByUserUrl: string = "https://wunderlist-clon-moviles.herokuapp.com/task";
+  private _createTaskUrl: string = "https://wunderlist-clon-moviles.herokuapp.com/task";
+  private _updateTaskUrl: string = "https://wunderlist-clon-moviles.herokuapp.com/task/";
+  private _deleteTaskUrl: string = "https://wunderlist-clon-moviles.herokuapp.com/task/";
   private _changeTask: Subject<any> = new Subject<any>();
   private _changeDateTime: Subject<any> = new Subject<any>();
 
@@ -25,29 +24,23 @@ export class TasksService {
     });
   }
 
-  public getTaskById(id: any) {
-    return this._http.get(this._getTasksByIdUrl + id, {
-      headers: this.headers
-    });
-  }
-
   public createTask(task: any): Observable<any> {
     return this._http.post<any>(this._createTaskUrl, {
       ...task
     }, { headers: this.headers });
   }
 
-  public updateTask(id: any, task: any) {
+  public updateTask(id: string, task: any) {
     return this._http.put(this._updateTaskUrl + id, {
       ...task
     }, { headers: this.headers });
   }
 
-  public deleteTask(id: any) {
+  public deleteTask(id: string) {
     return this._http.delete(this._deleteTaskUrl + id, { headers: this.headers })
   }
 
-  public changeValue(value: any) {
+  public changeValue(value: string) {
     this._changeTask.next(value);
   }
 

@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
     this._modalCtrl.dismiss();
   }
 
-  public saveDateTime(event: any) {
+  public saveDateTime() {
     this._taskService.changeDateTime({ date: this.date, time: this.time });
     this._modalCtrl.dismiss();
   }
