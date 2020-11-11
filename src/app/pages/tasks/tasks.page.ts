@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { MenuData } from 'src/app/interfaces/MenuData';
 import { TasksService } from 'src/app/services/tasks.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-tasks',
@@ -14,9 +15,6 @@ import { TasksService } from 'src/app/services/tasks.service';
 })
 export class TasksPage {
 
-  public items = [
-    'Pizza', 'Hamburguesa', 'Pasta', 'Arroz', 'Pimenton'
-  ];
   public menuData: MenuData[] = [];
   public tasks: any = [];
   public tasksSubscription: Subscription;
@@ -27,6 +25,7 @@ export class TasksPage {
   public token: string;
 
   constructor(private _tasksService: TasksService,
+    private _utilsService: UtilsService,
     private _modalCtrl: ModalController
   ) {
     this.token = localStorage.getItem('token');
@@ -47,10 +46,12 @@ export class TasksPage {
   }
 
   ngOnInit() {
+    this._utilsService.present('Please wait...');
     this.tasksSubscription = this._tasksService.getTasksByUser(this.token).subscribe((res: any) => {
       this.tasks = res.tasks;
       this.tasksNotPinned = this.tasks.filter((t: any) => t.pinned == false);
       this.tasksPinned = this.tasks.filter((t: any) => t.pinned == true);
+      this._utilsService.dismiss();
     });
   }
 
@@ -69,6 +70,10 @@ export class TasksPage {
   ionViewDidLeave() {
     this.tasksSubscription.unsubscribe();
     this.changeSubscription.unsubscribe();
+  }
+
+  ionViewWillLeave() {
+    this._tasksService.tasks = this.tasks;
   }
 
   public async openCreateTaskModal() {

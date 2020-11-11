@@ -27,7 +27,6 @@ export class PopoverComponent implements OnInit {
   ngOnInit() { }
 
   public selectPriority(priority: string) {
-    console.log(priority);
     this._popOverCtrl.dismiss({
       priority
     });

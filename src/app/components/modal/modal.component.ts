@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { Data } from 'src/app/interfaces/Data';
+import { Task } from 'src/app/interfaces/Task';
 
 import { TasksService } from 'src/app/services/tasks.service';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -19,8 +21,8 @@ export class ModalComponent implements OnInit {
   public title: string;
   public description: string;
   public priority: string;
-  public date: any;
-  public time: any;
+  public date: string;
+  public time: string;
   public pinned: boolean;
   public dateSubscription: Subscription;
   public timeSubscription: Subscription;
@@ -30,12 +32,11 @@ export class ModalComponent implements OnInit {
     private _utilsService: UtilsService,
     private _popOverCtrl: PopoverController
   ) {
-    // meter en variable de tipo subscription y desuscribir en ionviewdidleave
-    this._tasksService.detectChangeDateTime().subscribe((data) => {
-      const { date, time } = data
-      this.date = date
-      this.time = time
-    })
+    this._tasksService.detectChangeDateTime().subscribe((data: Data) => {
+      const { date, time } = data;
+      this.date = date;
+      this.time = time;
+    });
   }
 
   ngOnInit() {
@@ -43,8 +44,8 @@ export class ModalComponent implements OnInit {
       this.title = this.task["title"];
       this.description = this.task["description"];
       this.time = this.task.time;
-      this.date = this.task.date.split('T')[0];
       this.pinned = this.task.pinned;
+      this.date = this.task.date?.split('T')[0];
       this.priority = this.task.priority;
       if (this.task.pinned) {
         this.pinnedIcon = 'eyedrop';
@@ -55,24 +56,25 @@ export class ModalComponent implements OnInit {
   }
 
   public togglePinnedIcon() {
-    if (!this.task.pinned) {
+    if (!this.pinned) {
       this.pinnedIcon = 'eyedrop';
     } else {
       this.pinnedIcon = 'eyedrop-outline';
     }
-    this.task.pinned = !this.task.pinned;
+    this.pinned = !this.pinned;
   }
 
   public goBack() {
     this._modalCtrl.dismiss();
   }
 
-  public createTask(title: any, description: any) {
-    let task = {
+  public createTask(title: string, description: string) {
+    let task: Task = {
       ...this.task,
       title: this.title,
       description: this.description,
       priority: this.priority,
+      pinned: this.pinned,
       time: this.time,
       date: this.date
     };
@@ -108,13 +110,11 @@ export class ModalComponent implements OnInit {
   }
 
   public onUpdateTaskEvent(task: any) {
-    console.log('updateTaskEvent', task);
     this._utilsService.present('Please wait...');
     return this._tasksService.updateTask(task._id, task).toPromise();
   }
 
   public onCreateTaskEvent(task: any) {
-    console.log('createTaskEvent', task);
     this._utilsService.present('Please wait...');
     return this._tasksService.createTask(task).toPromise();
   }
@@ -127,7 +127,7 @@ export class ModalComponent implements OnInit {
     });
     await popover.present();
     const { data } = await popover.onDidDismiss();
-    this.priority = data?.priority.priority
+    this.priority = data?.priority.priority;
   }
 
   public async openDateTime() {
@@ -139,12 +139,5 @@ export class ModalComponent implements OnInit {
       }
     });
     return await modal.present();
-    //   this._utilsService.present('Please wait...');
-    //   setTimeout(() => {
-    //     this._utilsService.dismiss();
-    //     this._modalCtrl.dismiss();
-    //     this._router.navigate(['/datetime']);
-    //   }, 500)
-    // }
   }
 }

@@ -18,7 +18,7 @@ export class SigninPage implements OnInit {
 
   public signInForm: any = [
     { id: 'email', placeholder: 'Email' },
-    { id: 'password', type: 'password', placeholder: 'Password: 6-64 characters' }
+    { id: 'password', type: 'password', placeholder: 'Password' }
   ];
   public userSubscription: Subscription;
 

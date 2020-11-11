@@ -23,6 +23,7 @@ export class SettingsPage {
     this._userService.signOutUser(token).subscribe((res: any) => {
       setTimeout(() => {
         this._utilsService.dismiss();
+        localStorage.removeItem('token');
         window.location.href = '/signin';
       }, 500);
     });

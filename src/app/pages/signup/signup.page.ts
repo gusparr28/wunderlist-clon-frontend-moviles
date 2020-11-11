@@ -21,7 +21,7 @@ export class SignupPage implements OnInit {
   public signUpForm: any = [
     { id: 'name', placeholder: 'Name' },
     { id: 'email', placeholder: 'Email' },
-    { id: 'password', type: 'password', placeholder: 'Password: 6-64 characters' }
+    { id: 'password', type: 'password', placeholder: 'Password' }
   ];
   public userSubscription: Subscription;
 
@@ -42,7 +42,7 @@ export class SignupPage implements OnInit {
 
   public postData(data: any) {
     this._utilsService.present('Please wait...');
-    this.userSubscription = this._authService.signUp(data).subscribe(res => {
+    this.userSubscription = this._authService.signUp(data).subscribe(() => {
       setTimeout(() => {
         this._utilsService.dismiss();
         this._router.navigate(['/signin']);

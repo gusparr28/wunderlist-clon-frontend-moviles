@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import { TasksService } from 'src/app/services/tasks.service';
 
 @Component({
   selector: 'app-statistics',
@@ -10,20 +10,21 @@ import { Color, Label } from 'ng2-charts';
 })
 export class StatisticsPage implements OnInit {
 
-  constructor(private _http: HttpClient) { }
+  public token: string;
+
+  constructor(private _tasksService: TasksService) { }
 
   ngOnInit() {
   }
 
-  chartData: ChartDataSets[] = [{ data: [], label: 'Stock price' }];
+  chartData: ChartDataSets[] = [{ data: [], label: 'Tasks created' }];
   chartLabels: Label[];
 
-  // Options
   chartOptions = {
     responsive: true,
     title: {
       display: true,
-      text: 'Historic tasks completed'
+      text: 'Historic tasks created'
     },
     pan: {
       enabled: true,
@@ -43,27 +44,19 @@ export class StatisticsPage implements OnInit {
   ];
   chartType = 'line';
   showLegend = false;
-
-  // For search
   stock = '';
-
-  getData() {
-    this._http.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${this.stock}?from=2018-03-12&to=2019-03-12`).subscribe(res => {
-      const history = res['historical'];
+      
+  public getData() {
+    this.token = localStorage.getItem('token');
+    this._tasksService.getTasksByUser(this.token).subscribe((res: any) => {
+      const history = res.tasks;
 
       this.chartLabels = [];
       this.chartData[0].data = [];
 
-      for (let entry of history) {
-        this.chartLabels.push(entry.date);
-        this.chartData[0].data.push(entry['close']);
+      for (let task of history) {
+        this.chartLabels.push(task.date.split('T')[0]);
       }
     });
   }
-
-  typeChanged(e) {
-    const on = e.detail.checked;
-    this.chartType = on ? 'line' : 'bar';
-  }
-
 }
