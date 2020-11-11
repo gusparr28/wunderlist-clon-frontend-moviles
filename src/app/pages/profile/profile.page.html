@@ -1,0 +1,14 @@
+<app-header [routeBack]="'/home/tasks'" [hasBack]="true"></app-header>
+<ion-content>
+    <ion-list>
+        <img src="https://res.cloudinary.com/instagram-web2/image/upload/v1604963821/wunderlist-clon-moviles/person_qbie2q.png">
+        <br />
+        <h1>Profile</h1>
+        <ion-item>
+            {{userInfo.name}}
+        </ion-item>
+        <ion-item>
+            {{userInfo.email}}
+        </ion-item>
+    </ion-list>
+</ion-content>
